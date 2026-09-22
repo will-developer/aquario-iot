@@ -24,7 +24,7 @@ import {
 
 export function AquarioDashboard() {
   const { payload, mqttStatus, espStatus, historico } = useMqtt();
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
 
   const nivelAtual = payload?.nivel === 'BAIXO' ? 'low' : 'normal';
   const NivelIcon = levelConfig[nivelAtual].icon;
@@ -49,25 +49,21 @@ export function AquarioDashboard() {
   const ultimaLeitura = payload?.timestamp ?? '--';
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
-      <header className="mx-auto max-w-3xl px-4 pt-6 text-center">
-        <div className="mb-4 flex items-center justify-end gap-3">
-          {user ? (
-            <span className="truncate text-xs text-slate-400">{user.email}</span>
-          ) : null}
-          <button
-            type="button"
-            onClick={logout}
-            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-200 transition-colors hover:bg-white/10"
-          >
-            <LogOut className="h-3.5 w-3.5" />
-            Sair
-          </button>
-        </div>
+    <div className="relative min-h-screen overflow-x-hidden bg-slate-950 text-white">
+      <button
+        type="button"
+        onClick={logout}
+        aria-label="Sair"
+        title="Sair"
+        className="absolute top-[22px] right-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 backdrop-blur-sm transition-colors hover:bg-white/10 hover:text-white"
+      >
+        <LogOut className="h-4 w-4" />
+      </button>
 
-        <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-200">
-          <Waves size={14} />
-          Monitoramento IoT
+      <header className="mx-auto max-w-3xl px-4 pt-6 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-[10px] leading-none font-semibold uppercase tracking-[0.2em] text-cyan-200">
+          <Waves size={14} className="shrink-0" />
+          <span>Monitoramento IoT</span>
         </div>
 
         <h1 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-3xl">
