@@ -2,14 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import mqtt, { type IClientOptions, type MqttClient } from 'mqtt';
 
 import type { HistoricoEvento, MqttPayload } from '../types';
-import {
-  MAX_EVENTOS_HISTORICO,
-  MQTT_BROKER,
-  MQTT_PASSWORD,
-  MQTT_TOPIC,
-  MQTT_USER,
-  TEMPO_OFFLINE,
-} from '../utils/constants';
+import { MAX_EVENTOS_HISTORICO, TEMPO_OFFLINE } from '../utils/constants';
+import { getMqttConfig } from '../utils/env';
 
 type MqttConnectionStatus =
   | 'connecting'
@@ -35,19 +29,21 @@ export function useMqtt() {
       return;
     }
 
+    const config = getMqttConfig();
+
     const options: IClientOptions = {
-      username: MQTT_USER,
-      password: MQTT_PASSWORD,
+      username: config.user,
+      password: config.password,
       reconnectPeriod: 5000,
     };
 
-    const client = mqtt.connect(MQTT_BROKER, options);
+    const client = mqtt.connect(config.broker, options);
     clientRef.current = client;
 
     const handleConnect = () => {
       setMqttStatus('connected');
 
-      client.subscribe(MQTT_TOPIC, (error) => {
+      client.subscribe(config.topic, (error) => {
         if (error) {
           console.error('Erro ao assinar o tópico MQTT:', error);
           setMqttStatus('error');
@@ -69,7 +65,7 @@ export function useMqtt() {
     };
 
     const handleMessage = (topic: string, message: Buffer) => {
-      if (topic !== MQTT_TOPIC) {
+      if (topic !== config.topic) {
         return;
       }
 

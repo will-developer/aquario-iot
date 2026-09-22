@@ -1,9 +1,14 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import { AuthProvider } from './context/AuthContext';
-import { DashboardPage } from './pages/DashboardPage';
 import { LoginPage } from './pages/LoginPage';
 import { ProtectedRoute } from './routes/ProtectedRoute';
+
+const DashboardPage = lazy(async () => {
+  const module = await import('./pages/DashboardPage');
+  return { default: module.DashboardPage };
+});
 
 function App() {
   return (
@@ -14,7 +19,20 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route
+              path="/dashboard"
+              element={
+                <Suspense
+                  fallback={
+                    <div className="flex min-h-screen items-center justify-center bg-slate-950 text-sm text-slate-300">
+                      Carregando painel...
+                    </div>
+                  }
+                >
+                  <DashboardPage />
+                </Suspense>
+              }
+            />
           </Route>
 
           <Route path="*" element={<Navigate to="/login" replace />} />

@@ -3,8 +3,8 @@ import { AtSign, LockKeyhole, Waves } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import googleIcon from '../assets/google.png';
-import backgroundImage from '../assets/header-login.png';
-import backgroundImageMobile from '../assets/header-mobile.png';
+import backgroundImage from '../assets/header-login.webp';
+import backgroundImageMobile from '../assets/header-mobile.webp';
 import { FormField } from '../components/ui/FormField';
 import { useAuth } from '../hooks/useAuth';
 
@@ -15,6 +15,7 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState('');
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -40,9 +41,22 @@ export function LoginPage() {
     navigate('/dashboard', { replace: true });
   };
 
-  const handleGoogleLogin = () => {
-    loginWithGoogle();
-    navigate('/dashboard', { replace: true });
+  const handleGoogleLogin = async () => {
+    setError('');
+    setGoogleLoading(true);
+
+    try {
+      await loginWithGoogle();
+      navigate('/dashboard', { replace: true });
+    } catch (googleError) {
+      setError(
+        googleError instanceof Error
+          ? googleError.message
+          : 'Login com Google falhou.',
+      );
+    } finally {
+      setGoogleLoading(false);
+    }
   };
 
   return (
@@ -126,14 +140,17 @@ export function LoginPage() {
             <button
               type="button"
               onClick={handleGoogleLogin}
-              className="mt-6 inline-flex min-h-[52px] w-full items-center justify-center gap-2.5 rounded-[14px] border border-[rgba(81,97,112,0.28)] bg-white font-bold text-[#1f2a37] shadow-[0_6px_16px_rgba(15,23,42,0.08)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] max-mobile:min-h-[50px]"
+              disabled={googleLoading}
+              className="mt-6 inline-flex min-h-[52px] w-full items-center justify-center gap-2.5 rounded-[14px] border border-[rgba(81,97,112,0.28)] bg-white font-bold text-[#1f2a37] shadow-[0_6px_16px_rgba(15,23,42,0.08)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 max-mobile:min-h-[50px]"
             >
               <img
                 src={googleIcon}
-                alt="Google"
+                alt=""
                 className="block h-[18px] w-[18px] object-contain"
               />
-              <span className="leading-none">Entrar com Google</span>
+              <span className="leading-none">
+                {googleLoading ? 'Conectando...' : 'Entrar com Google'}
+              </span>
             </button>
           </div>
         </div>
