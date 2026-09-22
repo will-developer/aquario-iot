@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import googleIcon from '../assets/google.png';
 import backgroundImage from '../assets/header-login.png';
+import backgroundImageMobile from '../assets/header-mobile.png';
 import { useAuth } from '../context/AuthContext';
 
 export function LoginPage() {
@@ -48,9 +49,12 @@ export function LoginPage() {
       <div className="login-shell">
         <div
           className="hero-panel"
-          style={{
-            backgroundImage: `url(${backgroundImage})`,
-          }}
+          style={
+            {
+              '--hero-bg-desktop': `url(${backgroundImage})`,
+              '--hero-bg-mobile': `url(${backgroundImageMobile})`,
+            } as React.CSSProperties
+          }
         />
 
         <div className="login-card">

@@ -54,6 +54,7 @@ button {
 .hero-panel {
   position: absolute;
   inset: 0;
+  background-image: var(--hero-bg-desktop);
   background-size: cover;
   background-position: left center;
   background-repeat: no-repeat;
@@ -69,7 +70,7 @@ button {
 .login-card {
   position: absolute;
   top: 0;
-  left: 8%;
+  left: 5.5%;
   bottom: 0;
   display: flex;
   align-items: center;
@@ -241,11 +242,57 @@ button {
     min-height: 100vh;
   }
 
+  .hero-panel {
+    background-image: var(--hero-bg-mobile);
+    background-position: center;
+  }
+
+  .hero-panel::before {
+    background: linear-gradient(180deg, rgba(0, 10, 18, 0.706), rgba(0, 10, 18, 0.811) 40%, rgba(0, 10, 18, 0.553));
+  }
+
   .login-card {
     left: 0;
     width: 100%;
     padding: 28px 20px 42px;
-    background: rgba(239, 244, 246, 0.8);
+    background: transparent;
+  }
+
+  .brand-mark {
+    color: #eaf6fb;
+  }
+
+  .brand-mark svg {
+    color: #7fe3f5;
+  }
+
+  .title {
+    color: #f5fbff;
+  }
+
+  .field {
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .field-icon {
+    color: #eaf6fb;
+  }
+
+  .field input {
+    color: #f5fbff;
+  }
+
+  .field input::placeholder {
+    color: rgba(245, 251, 255, 0.75);
+  }
+
+  .checkbox-row {
+    color: rgba(245, 251, 255, 0.92);
+  }
+
+  .error-message {
+    color: #ffb4a8;
   }
 }
 
