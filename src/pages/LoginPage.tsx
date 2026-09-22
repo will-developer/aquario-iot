@@ -60,8 +60,8 @@ export function LoginPage() {
   };
 
   return (
-    <div className="h-screen w-full max-tablet:h-auto max-tablet:min-h-screen">
-      <div className="relative h-full w-full overflow-hidden bg-brand-50 max-tablet:h-screen">
+    <div className="h-screen w-full overflow-hidden max-tablet:h-dvh">
+      <div className="relative h-full w-full overflow-hidden bg-brand-50">
         <div
           className="absolute inset-0 bg-[image:var(--hero-bg-desktop)] bg-cover bg-left bg-no-repeat max-tablet:bg-[image:var(--hero-bg-mobile)] max-tablet:bg-center"
           style={
@@ -74,7 +74,7 @@ export function LoginPage() {
 
         <div className="absolute inset-0 bg-[image:var(--overlay-hero-desktop)] max-tablet:bg-[image:var(--overlay-hero-mobile)]" />
 
-        <div className="absolute inset-y-0 left-[5.5%] z-[2] flex w-[28%] items-center justify-center bg-[#fcfdfd] px-7 py-8 max-tablet:left-0 max-tablet:w-full max-tablet:bg-transparent max-tablet:px-5 max-tablet:pt-7 max-tablet:pb-[42px]">
+        <div className="absolute inset-y-0 left-[5.5%] z-[2] flex w-[28%] items-center justify-center bg-[#fcfdfd] px-7 py-8 max-tablet:left-0 max-tablet:w-full max-tablet:overflow-y-auto max-tablet:bg-transparent max-tablet:px-5 max-tablet:pt-7 max-tablet:pb-[42px]">
           <div className="w-full max-w-[500px] text-center">
             <div
               className="mb-[18px] inline-flex items-center gap-2.5 text-[clamp(1.15rem,1.7vw,1.6rem)] font-extrabold tracking-[0.05em] text-brand-700 uppercase max-tablet:text-[#eaf6fb] max-mobile:text-base"
