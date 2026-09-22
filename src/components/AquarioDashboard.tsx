@@ -26,25 +26,20 @@ export function AquarioDashboard() {
   const { payload, mqttStatus, espStatus, historico } = useMqtt();
   const { logout } = useAuth();
 
-  const nivelAtual = payload?.nivel === 'BAIXO' ? 'low' : 'normal';
-  const NivelIcon = levelConfig[nivelAtual].icon;
-  const nivelLabel = levelConfig[nivelAtual].label;
-
   const bombaLigada = payload?.bomba === 'ON';
-  const bombaKey = bombaLigada ? 'on' : 'off';
-  const BombaIcon = pumpConfig[bombaKey].icon;
-  const bombaLabel = pumpConfig[bombaKey].label;
-  const bombaTone = pumpConfig[bombaKey].tone;
-
   const segurancaAtiva = payload?.seguranca === 'ATIVA';
-  const segurancaKey = segurancaAtiva ? 'active' : 'normal';
-  const SegurancaIcon = safetyConfig[segurancaKey].icon;
-  const segurancaLabel = safetyConfig[segurancaKey].label;
 
-  const mqttConfig = mqttStatusConfig[mqttStatus];
-  const espConfig = espStatusConfig[espStatus];
-  const MqttIcon = mqttConfig.icon;
-  const EspIcon = espConfig.icon;
+  const nivel = levelConfig[payload?.nivel === 'BAIXO' ? 'low' : 'normal'];
+  const bomba = pumpConfig[bombaLigada ? 'on' : 'off'];
+  const seguranca = safetyConfig[segurancaAtiva ? 'active' : 'normal'];
+  const mqtt = mqttStatusConfig[mqttStatus];
+  const esp = espStatusConfig[espStatus];
+
+  const NivelIcon = nivel.icon;
+  const BombaIcon = bomba.icon;
+  const SegurancaIcon = seguranca.icon;
+  const MqttIcon = mqtt.icon;
+  const EspIcon = esp.icon;
 
   const ultimaLeitura = payload?.timestamp ?? '--';
 
@@ -80,9 +75,9 @@ export function AquarioDashboard() {
             </div>
 
             <div
-              className={`text-3xl font-bold sm:text-4xl ${toneClasses[levelConfig[nivelAtual].tone]}`}
+              className={`text-3xl font-bold sm:text-4xl ${toneClasses[nivel.tone]}`}
             >
-              {nivelLabel}
+              {nivel.label}
             </div>
           </div>
 
@@ -92,9 +87,9 @@ export function AquarioDashboard() {
                 <BombaIcon className="h-5 w-5" />
               </div>
               <div
-                className={`text-xl font-semibold sm:text-2xl ${toneClasses[bombaTone]}`}
+                className={`text-xl font-semibold sm:text-2xl ${toneClasses[bomba.tone]}`}
               >
-                {bombaLabel}
+                {bomba.label}
               </div>
             </div>
 
@@ -107,13 +102,11 @@ export function AquarioDashboard() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-3 rounded-2xl border border-white/10 bg-slate-900/40 px-4 py-3 text-sm font-semibold">
-            <SegurancaIcon
-              className={`h-5 w-5 ${toneClasses[safetyConfig[segurancaKey].tone]}`}
-            />
-            <span className={toneClasses[safetyConfig[segurancaKey].tone]}>
-              {segurancaLabel}
-            </span>
+          <div
+            className={`mt-6 flex items-center justify-center gap-3 rounded-2xl border border-white/10 bg-slate-900/40 px-4 py-3 text-sm font-semibold ${toneClasses[seguranca.tone]}`}
+          >
+            <SegurancaIcon className="h-5 w-5" />
+            <span>{seguranca.label}</span>
           </div>
 
           {segurancaAtiva && (
@@ -131,17 +124,13 @@ export function AquarioDashboard() {
           )}
 
           <div className="mt-6 space-y-3 text-left text-sm">
-            <div
-              className={`flex items-center gap-2 ${toneClasses[mqttConfig.tone]}`}
-            >
+            <div className={`flex items-center gap-2 ${toneClasses[mqtt.tone]}`}>
               <MqttIcon className="h-4 w-4" />
-              <span>{mqttConfig.label}</span>
+              <span>{mqtt.label}</span>
             </div>
-            <div
-              className={`flex items-center gap-2 ${toneClasses[espConfig.tone]}`}
-            >
+            <div className={`flex items-center gap-2 ${toneClasses[esp.tone]}`}>
               <EspIcon className="h-4 w-4" />
-              <span>{espConfig.label}</span>
+              <span>{esp.label}</span>
             </div>
           </div>
 

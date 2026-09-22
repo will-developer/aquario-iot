@@ -9,47 +9,89 @@
 
   --color-brand-50: #f3f5f4;
   --color-brand-100: #eef2f4;
-  --color-brand-600: #11476e;
-  --color-brand-700: #0f3d4d;
-  --color-brand-800: #0d4058;
-  --color-brand-900: #0b2433;
-  --color-brand-950: #001c2c;
-
-  --color-aqua-300: #7fe3f5;
   --color-aqua-400: #28d2ea;
   --color-aqua-500: #17b8d7;
   --color-aqua-600: #1eb4d7;
+
+  /* Tokens do login. Os valores aqui sao o tema desktop (card branco);
+     o @media no fim do arquivo troca todos de uma vez para o tema mobile,
+     que fica por cima da foto escurecida. */
+  --color-login-card: #fcfdfd;
+  --color-login-logo: #0f3d4d;
+  --color-login-icon: #17b8d7;
+  --color-login-title: #001c2c;
+  --color-login-text: rgb(18 36 45 / 0.9);
+  --color-login-error: #b42318;
+  --color-field-bg: rgb(123 209 228 / 0.24);
+  --color-field-border: rgb(14 96 122 / 0.08);
+  --color-field-icon: #0d4058;
+  --color-field-text: #11476e;
+  --color-field-placeholder: rgb(16 71 99 / 0.7);
+
+  /* Constantes nos dois temas. */
+  --color-field-focus: rgb(18 152 184 / 0.3);
+  --color-on-primary: #f5faff;
+  --color-google-border: rgb(81 97 112 / 0.28);
+  --color-google-text: #1f2a37;
+
+  --radius-control: 14px;
+  --radius-field: 18px;
+
+  --shadow-control: 0 8px 22px rgb(21 176 209 / 0.38);
+  --shadow-control-hover: 0 10px 26px rgb(21 176 209 / 0.42);
+  --shadow-soft: 0 6px 16px rgb(15 23 42 / 0.08);
+  --shadow-soft-hover: 0 8px 18px rgb(15 23 42 / 0.12);
 }
 
 :root {
   font-family: Arial, sans-serif;
   line-height: 1.5;
   font-weight: 700;
-  color: var(--color-brand-900);
+  color: #0b2433;
   background: var(--color-brand-100);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --overlay-hero-desktop: linear-gradient(
+  --hero-overlay: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.08),
+    rgb(255 255 255 / 0.08),
     transparent 26%
   );
-  --overlay-hero-mobile: linear-gradient(
-    180deg,
-    rgba(0, 10, 18, 0),
-    rgba(0, 10, 18, 0.811) 40%,
-    rgba(0, 10, 18, 0.553)
-  );
+}
+
+/* Tema mobile/tablet do login. A largura precisa casar com
+   --breakpoint-tablet: media query nao aceita var(). */
+@media (width < 900px) {
+  :root {
+    --color-login-card: transparent;
+    --color-login-logo: #eaf6fb;
+    --color-login-icon: #7fe3f5;
+    --color-login-title: #f5fbff;
+    --color-login-text: rgb(245 251 255 / 0.92);
+    --color-login-error: #ffb4a8;
+    --color-field-bg: rgb(255 255 255 / 0.16);
+    --color-field-border: rgb(255 255 255 / 0.3);
+    --color-field-icon: #eaf6fb;
+    --color-field-text: #f5fbff;
+    --color-field-placeholder: rgb(245 251 255 / 0.92);
+
+    --hero-overlay: linear-gradient(
+      180deg,
+      rgb(0 10 18 / 0),
+      rgb(0 10 18 / 0.811) 40%,
+      rgb(0 10 18 / 0.553)
+    );
+  }
 }
 
 html,
 body,
 #root {
   margin: 0;
-  min-height: 100vh;
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
 }
 
 body {

@@ -22,11 +22,11 @@ export function FormField({
   return (
     <label
       htmlFor={id}
-      className="flex min-h-[62px] items-center gap-3.5 rounded-[18px] border border-[rgba(14,96,122,0.08)] bg-[rgba(123,209,228,0.24)] pr-[18px] pl-3.5 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[rgba(18,152,184,0.3)] max-tablet:border-white/30 max-tablet:bg-white/[0.16] max-mobile:min-h-[56px] max-mobile:pl-3"
+      className="flex min-h-15.5 items-center gap-3.5 rounded-field border border-field-border bg-field-bg pr-4.5 pl-3.5 focus-within:outline-2 focus-within:outline-field-focus focus-within:outline-offset-2 max-mobile:min-h-14 max-mobile:pl-3"
     >
       <span
         aria-hidden="true"
-        className="inline-flex w-6 min-w-6 items-center justify-center text-brand-800 opacity-90 max-tablet:text-[#eaf6fb]"
+        className="inline-flex w-6 min-w-6 items-center justify-center text-field-icon opacity-90"
       >
         <Icon size={18} />
       </span>
@@ -37,7 +37,7 @@ export function FormField({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         autoComplete={autoComplete}
-        className="w-full border-none bg-transparent text-[1.1rem] text-brand-600 outline-none placeholder:text-[rgba(16,71,99,0.7)] max-tablet:text-[#f5fbff] max-tablet:placeholder:text-[rgba(245,251,255,0.75)]"
+        className="w-full border-none bg-transparent text-[1.1rem] text-field-text outline-none placeholder:text-field-placeholder"
       />
     </label>
   );
