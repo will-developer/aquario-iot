@@ -79,7 +79,7 @@ export function LoginPage() {
           </div>
 
           <h1 className="mb-7 font-display text-2xl font-black tracking-tighter text-login-title max-mobile:text-[1.9rem]">
-            Garanta a segurança dos peixeis com monitoramento preciso
+            Garanta a segurança dos peixes com monitoramento preciso
           </h1>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4.5">
@@ -118,7 +118,9 @@ export function LoginPage() {
             </label>
 
             {error ? (
-              <p className="text-[0.8rem] font-bold text-login-error">{error}</p>
+              <p className="text-[0.8rem] font-bold text-login-error">
+                {error}
+              </p>
             ) : null}
 
             <button
