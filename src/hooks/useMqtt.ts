@@ -51,10 +51,7 @@ export function useMqtt() {
         if (error) {
           console.error('Erro ao assinar o tópico MQTT:', error);
           setMqttStatus('error');
-          return;
         }
-
-        console.log('Tópico assinado:', MQTT_TOPIC);
       });
     };
 
