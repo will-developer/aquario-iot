@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './hooks/useAuth';
 import { LoginPage } from './pages/LoginPage';
+import { GuestRoute } from './routes/GuestRoute';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 
 const DashboardPage = lazy(async () => {
@@ -23,7 +24,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<RootRedirect />} />
-          <Route path="/login" element={<LoginPage />} />
+
+          <Route element={<GuestRoute />}>
+            <Route path="/login" element={<LoginPage />} />
+          </Route>
 
           <Route element={<ProtectedRoute />}>
             <Route
